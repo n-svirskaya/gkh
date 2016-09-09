@@ -1,0 +1,52 @@
+<div id="registration" class="div-registration">
+    <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
+    <div class="div-registration_title">Регистрация</div>
+    <ul class="ul-clear">
+        <li><span class="div-registration_li active">Данные лицевого</span><span>&rarr;</span></li>
+        <li><span class="div-registration_li">Данные для входа</span><span>&rarr;</span></li>
+        <li><span class="div-registration_li">Готово!</span></li>
+    </ul>
+    <form id="step1-form" action="{{ path('user_register_step1') }}" method="post">
+        {{ form_errors(form) }}
+        {{ form_widget(form._token) }}
+        <div class="div-registration_wrapper">
+            <div class="id-person">
+                Личный номер владельца жилья<br>
+                <div class="{% if form.privateNumber.vars.errors|length > 0 %}
+                    error
+                {% endif %}">
+                {{ form_widget(form.privateNumber) }}
+                </div>
+            </div>
+            <div class="score">
+                Номер лицевого счёта<br>
+                <div class="{% if form.gkhNumber.vars.errors|length > 0 %}
+                    error
+                {% endif %}">
+                    {{ form_widget(form.gkhNumber) }}
+                </div>
+            </div>
+            <input id="step1-next" type="button" value="Далее">
+
+        </div>
+        {% set errorNumber = false %}
+        {% for error in form.gkhNumber.vars.errors %}
+            {% if error.message == 'error_gkh_number' %}
+                {% set errorNumber = true %}
+            {% endif %}
+        {% endfor %}
+        <div class="div-registration_footer"
+             {% if not errorNumber %}
+                 style="display: none;"
+             {% endif %}
+            >
+            Сожалеем, ваш дом не подключён к нашей системе.
+            Вы можете зарегистрироваться с другим лицевым
+            счётом или оставить заявку на подключение этого.
+            <div class="div-registration_footer_button">
+                {{ form_widget(form.email, { 'attr': {'placeholder': 'e-mail'} }) }}
+                <input id="step1-next-footer" type="button" value="Оставить заявку"  class="orange-43">
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+#services:
+ #   personal_account_manager:
+  #      class:        GkhBundle\Manager\PersonalAccountManager
+   #     arguments:    [@doctrine.orm.default_entity_manager]
+services:
+    validator.check_if_gkh_number_exist:
+        class: GkhBundle\Validator\Constraints\CheckIfGkhNumberExistValidator
+        arguments:
+            - @personal_account_manager
+        tags:
+            - { name: validator.constraint_validator }
+
+    personal_account_manager:
+        class:        GkhBundle\Manager\PersonalAccountManager
+        arguments:    [@doctrine.orm.default_entity_manager]
+
+    user_request_manager:
+            class:        GkhBundle\Manager\UserRequestManager
+            arguments:    [@doctrine.orm.default_entity_manager]
+
+    user_manager:
+                class:        GkhBundle\Manager\UserManager
+                arguments:
+                    - @doctrine.orm.default_entity_manager
+                    - @session
+                    - @fos_user.user_manager
+                    - @mailer
+                    - @templating
+                    - @router
+                    - @fos_user.util.token_generator
+
+    rs_user.registration_complet:
+            class: GkhBundle\EventListener\RegistrationConfirmListener
+            arguments: [@router]
+            tags:
+                - { name: kernel.event_subscriber }
+
+    validator.check_if_gkh_email_exist:
+           class: GkhBundle\Validator\Constraints\CheckIfGkhEmailExistValidator
+           arguments:
+               - @user_manager
+           tags:
+               - { name: validator.constraint_validator }
+
+    security.authentication.success_handler:
+            class:  UserBundle\Handler\AuthenticationSuccessHandler
+            arguments:  ["@security.http_utils", {}]
+            tags:
+                - { name: 'monolog.logger', channel: 'security' }

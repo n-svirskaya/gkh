@@ -1,0 +1,29 @@
+<div class="div-registration" xmlns="http://www.w3.org/1999/html">
+    <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
+    <div class="div-registration_title">Регистрация</div>
+    <ul class="ul-clear">
+        <li><span class="div-registration_li">Данные лицевого</span><span>&rarr;</span></li>
+        <li><span class="div-registration_li">Данные для входа</span><span>&rarr;</span></li>
+        <li><span class="div-registration_li active">Готово!</span></li>
+    </ul>
+    <div class="div-registration_wrapper-2">
+        Подтвердите
+        <div class="div-registration_inner">
+            <form id="step3-form" action="{{ path('user_register_step3') }}" method="post">
+                {{ form_errors(form) }}
+                {{ form_widget(form._token) }}
+            Я,
+                <div class="
+                {% if form.name.vars.errors|length > 0 %}
+                    error
+                {% endif %}">
+                {{ form_widget(form.name, { 'attr': {'placeholder': 'Ваше ФИО'} }) }}<br>
+            согласен <a href="#">с условиями пользовательской оферты</a>
+                </div>
+            </form>
+        </div>
+        <div style="text-align:center">
+            <input id="step3-next" class="orange-43" type="button" value="Подтвердить и зарегистрироваться">
+        </div>
+    </div>
+</div>
