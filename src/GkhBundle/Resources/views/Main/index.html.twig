@@ -234,7 +234,7 @@
                     {{ form_errors(form.email) }}
                     {{ form_errors(form.message) }}
                  <!--   Заполните все обязательные поля<br><br>-->
-                    <input id="electronic_submit" type="submit" value="Отправить обращение" class="orange-43"> &nbsp;<a href="#">Отмена</a>
+                    <input id="electronic_submit" type="submit" value="Отправить обращение" class="orange-43"> &nbsp;<a id="electron_cancel" href="#">Отмена</a>
                 </td>
             </tr>
         </table>
@@ -295,6 +295,9 @@
         if('{{ app.request.get('success') }}'){
             alert('Ваше обращение получено и будет рассмотрено в соответствии с законодательстовм РБ');
         }
+        $("#electron_cancel").on('click', function() {
+            $('#elektron').hide();
+        });
         $('#register-button').on('click', function() {
             $('#registration').show(function() {
                 var modal = $(this);
