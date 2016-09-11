@@ -53,12 +53,12 @@ class ElectronicTreatmentType extends AbstractType
                     new Email(array('message' => 'Неверный формат e-mail')),
                 )
             ))
-            ->add('message', TextareaType::class, array(
+            ->add('message', 'textarea', array(
                 'constraints' => array(
                     new NotBlank(array('message' => 'Поле "Текст сообщения" обязательно для заполнения.')),
                 )
             ))
-            ->add('doc', FileType::class);
+            ->add('doc', 'file');
     }
 
     /**

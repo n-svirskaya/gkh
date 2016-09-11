@@ -29,8 +29,8 @@ class RegistrationStep2Type extends AbstractType
                     new Email(array('message' => 'Неверный формат e-mail')),
                 )
             ))
-            ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
+            ->add('password', 'repeated', array(
+                'type' => 'password',
                 'invalid_message' => 'Пароли не совпали. Попробуйте еще раз.',
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
