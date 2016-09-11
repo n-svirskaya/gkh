@@ -51,7 +51,8 @@ class ElectronicTreatmentType extends AbstractType
             ->add('email', 'text', array(
                 'constraints' => array(
                     new Email(array('message' => 'Неверный формат e-mail')),
-                )
+                ),
+                'required' => false
             ))
             ->add('message', 'textarea', array(
                 'constraints' => array(
